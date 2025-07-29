@@ -111,7 +111,7 @@ const Notification = () => {
       </div>
 
       {/* Centering the Pagination */}
-      <div className="mt-4 flex justify-center">
+      <div className="mt-4 flex justify-center"> 
         <Pagination
           current={currentPage}
           total={allNotification?.notifications.length}
