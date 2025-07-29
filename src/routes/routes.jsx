@@ -59,6 +59,8 @@ import Milestone from "../page/Milestone/Milestone";
 import MilestoneDetails from "../page/Milestone/MilestoneDetails";
 import BabyCuseSounddetails from "../page/BabyCuse/BabyCuseSounddetails";
 import BabyCuseSouthingdetails from "../page/BabyCuse/BabyCuseSouthingdetails";
+import Category from "../page/Category/Category";
+import Transactions from "../page/Transactions/Transactions";
 
 
 
@@ -88,33 +90,19 @@ const router = createBrowserRouter([
       },
 
       {
-        path: "baby-cuse",
-        element: <BabyCuse />,
-      },
-      {
-        path: "baby-cuse/baby-case-details",
-        element: <BabyCusedetails />,
-      },
-      {
-        path: "baby-cuse/sound-details",
-        element: <BabyCuseSounddetails />,
-      },
-      {
-        path: "baby-cuse/southing-details",
-        element: <BabyCuseSouthingdetails />,
+        path: "category",
+        element: <Category />,
       },
 
-
-
       {
-        path: "milestone",
-        element: <Milestone />,
+        path: "transactions",
+        element: <Transactions />,
       },
+
       {
         path: "milestone/:id",
         element: <MilestoneDetails />,
       },
-
 
 
       {
@@ -135,6 +123,8 @@ const router = createBrowserRouter([
         path: "settings",
         element: <SettingsPage />,
       },
+
+
 
       {
         path: "settings/personal-info",

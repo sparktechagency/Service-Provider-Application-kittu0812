@@ -49,23 +49,14 @@ const SignIn = () => {
   };
 
   return (
-    <div className="w-full bg-[#fefaf4] h-full md:h-screen md:flex justify-around overflow-visible">
-      {/* <img
-            src={authLogo}
-            className="w-[147px] h-[144px] mx-auto md:my-20 md:mx-5"
-            alt="Sign in illustration"
-      /> */}
-      <div className=" h-[70%] md:w-[600px] w-[70%] mx-auto my-20 border-2 border-[#b5b5b5] rounded-xl md:my-28 place-content-center px-5 py-10 gap-8 bg-[#fefaf4] md:mx-10">
+    <div className="w-full">
 
-        <div className=" md:px-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-5">
+        <div className=" lg:w-1/2 lg:mx-auto mx-5 py-12 lg:py-0">
           <div className="mb-8">
-            <img src={logoimage} className="w-[100px] mx-auto mb-5" alt="" />
             <h1 className="font-semibold text-3xl text-gray-800">
-              Hello, Welcome!
+              Login Now
             </h1>
-            <p className="text-gray-500">
-              Please Enter Your Details Below to Continue
-            </p>
           </div>
           <Form
             layout="vertical"
@@ -91,6 +82,7 @@ const SignIn = () => {
             >
               <CustomInput
                 type="email"
+                className={"border border-[#fff080]"}
                 icon={HiOutlineMail}
                 placeholder={"Enter Email"}
               />
@@ -108,6 +100,7 @@ const SignIn = () => {
             >
               <CustomInput
                 type="password"
+                className={"border border-[#fff080]"}
                 icon={HiOutlineLockClosed}
                 placeholder={"Enter password"}
                 isPassword
@@ -118,17 +111,20 @@ const SignIn = () => {
               <Form.Item name="remember" valuePropName="checked" noStyle>
                 <Checkbox>Remember me</Checkbox>
               </Form.Item>
-              <Link to="/auth/forget-password" className="underline">
+              <Link to="/auth/forget-password" className={" underline"} >
                 Forgot password?
               </Link>
             </div>
 
             <Form.Item>
-              <button loading={isLoading} className="w-full bg-[#344f47] text-xl font-semibold text-white  rounded-md py-2" border={true}>
+              <button loading={isLoading} className="w-full bg-[#fff050] text-xl font-semibold text-[#1b2428]  rounded-md py-2" border={true}>
                 Login
               </button>
             </Form.Item>
           </Form>
+        </div>
+        <div className="lg:flex hidden  items-center justify-end">
+          <img className=" h-screen" src="/Auth/auth-banner.png" alt="" />
         </div>
       </div>
     </div>

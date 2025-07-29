@@ -18,14 +18,14 @@ const Header = ({ toggleSidebar }) => {
 
   const user = userProfile?.data;
   // console.log(user); 
-  
+
   useEffect(() => {
     refetch();
   }, [refetch]);
 
 
   return (
-    <div className="w-full px-5 py-3.5 bg-[#344f47] flex justify-between items-center text-white sticky top-0 left-0 z-10">
+    <div className="w-full px-5 py-3.5 bg-[#1b2428] flex justify-between items-center text-white sticky top-0 left-0 z-10">
       <div className="flex items-center gap-3">
         {/* Hamburger menu for mobile */}
         <button
@@ -38,23 +38,21 @@ const Header = ({ toggleSidebar }) => {
 
       <div className="flex justify-between items-center gap-5">
         <Link to={"/notification"}>
-          <h1 className="relative text-[#344f47] p-2 rounded-full bg-white">
+          <h1 className="relative text-[#ffffff] p-2 rounded-lg border border-white">
             <MdNotificationsNone className="size-8" />
-            {/* <span className="absolute top-0 right-0 w-5 h-5 text-white text-xs flex justify-center items-center bg-red-500 rounded-full">99+</span> */}
+            <span className="absolute top-0 right-0 w-5 h-5 text-[#1b2428] text-xs flex justify-center items-center bg-[#ffff01] rounded-md">9+</span>
           </h1>
 
         </Link>
-        <Link to={"/settings/personal-info"}>
+        <Link className="flex items-center gap-2 border border-[#ffff01] p-2 rounded-lg" to={"/settings/personal-info"}>
           <img
-            className="w-12 rounded-full"
+            className="w-8 rounded-full"
             src={user?.profileImageUrl ? Url + user?.profileImageUrl : userImage}
             alt="User Profile"
           />
+          <h1 className="">{user?.fullName || "User Name"}</h1>
         </Link>
-        <div className="hidden md:block">
-          <h1 className="">{user?.fullName}</h1>
-          <span className="">{user?.role}</span>
-        </div>
+
       </div>
     </div>
   );

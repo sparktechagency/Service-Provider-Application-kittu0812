@@ -27,19 +27,15 @@ const Personalinfo = () => {
                 </Link>
             </div>
             <div className="lg:flex md:flex gap-4 bg-white py-10 rounded-xl">
-                <div className="lg:w-1/3 flex flex-col border border-dotted p-4 justify-center items-center gap-8">
+
+                <div className="lg:max-w-[700px] mx-auto border border-[#fff050] rounded-lg mt-8 lg:mt-0 md:px-5">
+
                     <img
-                        className="w-40 h-40 border p-2 rounded-full"
+                        className="w-40 h-40 mx-auto border my-10 rounded-full"
                         src={user?.profileImageUrl ? Url + user?.profileImageUrl : User_Profile}
                         alt="User Profile"
                     />
-                    <div className="flex flex-col justify-center items-center text-center">
-                        <p className="text-lg md:text-xl">{user?.role}</p>
-                        <h1 className="text-2xl md:text-3xl font-medium">{user?.fullName}</h1>
-                    </div>
-                </div>
 
-                <div className="lg:w-2/3 mt-8 lg:mt-0 md:px-5">
                     <div className="flex flex-col gap-6">
                         <div className="flex flex-col md:flex-row gap-6">
                             <div className="flex-1">
@@ -52,7 +48,7 @@ const Personalinfo = () => {
                                 <Input
                                     placeholder="First name"
                                     value={user?.fullName} // Raw text for name
-                                    className="p-4 cursor-pointer text-lg md:text-xl bg-[#ebf5f5] text-black rounded w-full mt-3 outline-none"
+                                    className="p-4 cursor-pointer text-lg md:text-xl text-black rounded w-full mt-3 outline-none"
                                     type="text"
                                     readOnly
                                 />
@@ -66,7 +62,7 @@ const Personalinfo = () => {
                             <Input
                                 placeholder="Email"
                                 value={user?.email}// Raw text for email
-                                className="p-4 text-lg md:text-xl bg-[#ebf5f5] rounded w-full mt-3 outline-none"
+                                className="p-4 text-lg md:text-xl   rounded w-full mt-3 outline-none"
                                 type="text"
                                 readOnly
                             />
@@ -79,7 +75,7 @@ const Personalinfo = () => {
                             <Input
                                 placeholder="Phone"
                                 value={user?.phoneNumber}// Raw text for phone number
-                                className="p-4 text-lg md:text-xl bg-[#ebf5f5] rounded w-full mt-3 outline-none"
+                                className="p-4 text-lg md:text-xl   rounded w-full mt-3 outline-none"
                                 type="text"
                                 readOnly
                             />
@@ -91,7 +87,7 @@ const Personalinfo = () => {
             <div className="flex gap-2 items-center md:justify-end justify-center mt-8">
                 <div
                     onClick={() => navigate(`/settings/personal-info/edit`)}
-                    className="w-48 !bg-[#344f47] !text-white py-3 px-6 rounded-lg cursor-pointer flex justify-center items-center gap-2"
+                    className="w-48 !bg-[#fff050] !text-[#000] py-3 px-6 rounded-lg cursor-pointer flex justify-center items-center gap-2"
                 >
                     <FaEdit size={17} />
                     <p>Edit Profile</p>

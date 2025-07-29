@@ -90,25 +90,25 @@ const PersonalinfoEdit = () => {
                 >
                     <div className="flex flex-col lg:flex-row gap-10">
                         {/* ✅ Profile Picture Section */}
-                        <div className="flex flex-col items-center w-full lg:w-1/3 border-dotted border">
-                            <div className="relative sm:w-56 w-48 sm:h-56 h-48 rounded-full flex justify-center items-center mt-5 bg-gray-50 border">
-                                <Upload name="profile" showUploadList={false} onChange={handleUploadChange}>
-                                    <img className="w-44 h-44 rounded-full" src={imageUrl} alt="Profile" />
-                                    <Button className="border-none text-md text-blue-500 absolute bottom-6 flex items-center" icon={<LuImagePlus size={20} className="mr-2" />}>
-                                        Change Picture
-                                    </Button>
-                                </Upload>
-                            </div>
-
-                            <div className="text-center mt-6">
-                                <p className="text-lg">Admin</p>
-                                <h1 className="text-2xl font-medium">{user?.fullName || "N/A"}</h1>
-                            </div>
-                        </div>
 
                         {/* ✅ Form Inputs Section */}
-                        <div className="flex-1 w-full lg:w-2/3">
-                            <div className="flex flex-col gap-6">
+                        <div className="flex-1 max-w-[700px] border border-[#fff050] mx-auto p-6">
+                            <div className="flex flex-col items-center w-full mb-5 ">
+                                <div className="relative sm:w-36 w-24 sm:h-36 h-24 rounded-full flex justify-center items-center mt-5 bg-gray-50 border">
+                                    <Upload name="profile" showUploadList={false} onChange={handleUploadChange}>
+                                        <img className="w-32 h-32 rounded-full" src={imageUrl} alt="Profile" />
+                                        <Button className="border-none text-md text-blue-500 absolute bottom-6 flex items-center" icon={<LuImagePlus size={20} className="mr-2" />}>
+                                            Change Picture
+                                        </Button>
+                                    </Upload>
+                                </div>
+
+                                <div className="text-center mt-6">
+                                    <p className="text-lg">Admin</p>
+                                    <h1 className="text-2xl font-medium">{user?.fullName || "N/A"}</h1>
+                                </div>
+                            </div>
+                            <div className="flex flex-col gap-2">
                                 <Form.Item label={<span className="text-lg font-medium">Name</span>} name="name">
                                     <Input placeholder="Name" className="p-4 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500" />
                                 </Form.Item>
@@ -134,7 +134,7 @@ const PersonalinfoEdit = () => {
 
                     {/* ✅ Save Changes Button */}
                     <div className="flex sm:justify-end justify-center items-center mt-8">
-                        <Button htmlType="submit" className="h-14 md:px-20 !bg-[#344f47] !text-white rounded-lg text-lg font-medium">
+                        <Button htmlType="submit" className="h-14 md:px-20 !bg-[#fff050] !text-black rounded-lg text-lg font-medium">
                             Save Changes
                         </Button>
                     </div>
