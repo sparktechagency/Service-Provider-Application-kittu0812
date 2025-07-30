@@ -94,7 +94,7 @@ const Notification = () => {
 
       <div className="space-y-4">
         {paginatedNotifications?.map((item) => (
-          <div
+          <div 
             key={item.id}
             className="border border-[#fff050] hover:bg-[#fff0503b] cursor-pointer rounded-md p-4 flex items-center space-x-4"
           >
