@@ -61,19 +61,14 @@ import BabyCuseSounddetails from "../page/BabyCuse/BabyCuseSounddetails";
 import BabyCuseSouthingdetails from "../page/BabyCuse/BabyCuseSouthingdetails";
 import Category from "../page/Category/Category";
 import Transactions from "../page/Transactions/Transactions";
+import DashboardHomePage from "../page/DashboardHomePage/DashboardHomePage";
 
 
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: (
-      // <AdminRoutes>
-      // </AdminRoutes>
-      // <PrivetRout1e>  
-      <MainLayout />
-      // </PrivetRout1e>
-    ),
+    element: <MainLayout />,
     errorElement: <h1>Error</h1>,
     children: [
       {
@@ -163,6 +158,10 @@ const router = createBrowserRouter([
 
 
     ],
+  },
+  {
+    path: "/dashboard-home",
+    element: <DashboardHomePage />,
   },
   {
     path: "/auth",

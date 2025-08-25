@@ -12,6 +12,7 @@ const DashboardHome = () => {
           <IncomeGraphChart />
           <RecentTransactions />
           {/* <Piechart /> */}
+          
         </div>
       </div>
     </section>
