@@ -15,7 +15,7 @@ const Footer = () => {
                     <CiPlay1 /> Admin Dashboard
                 </Link>
             </div>
-            <img className='absolute max-w-[350px] bottom-0 right-20' src="/Page/footer-user.png" alt="" />
+            <img className='absolute md:block hidden max-w-[350px] bottom-0 right-20' src="/Page/footer-user.png" alt="" />
         </div>
     );
 }
