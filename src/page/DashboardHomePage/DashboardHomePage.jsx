@@ -1,11 +1,12 @@
 import React from 'react';
 import LandingPageHeader from '../../component/Main/DashboardLandingPage/LandingPageHeader';
+import HeroSection from './HeroSection';
 
 const DashboardHomePage = () => {
     return (
-        <div>
+        <div className='lg:w-[80%] w-[90%] mx-auto'>
             <LandingPageHeader />
-            <h1 className="text-4xl font-semibold py-5 px-3">Dashboard </h1>
+            <HeroSection />
         </div>
     );
 }
