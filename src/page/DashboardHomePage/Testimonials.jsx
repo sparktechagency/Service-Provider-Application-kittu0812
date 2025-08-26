@@ -67,7 +67,7 @@ const Testimonials = () => {
     };
 
     return (
-        <div className="py-10 px-5">
+        <section id='testimonials' className="py-10 px-5">
             <div className='mb-5 '>
                 <h2 className="text-center text-4xl mb-3 font-bold">What Our Customers Are Saying </h2>
                 <p className="text-center text-gray-600">Discover how our clients highlight the trust, transparency, and innovation that define the SureServ experience.</p>
@@ -124,7 +124,7 @@ const Testimonials = () => {
                     </button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

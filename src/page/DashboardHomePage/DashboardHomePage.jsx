@@ -9,13 +9,15 @@ import Footer from './Footer';
 
 const DashboardHomePage = () => {
     return (
-        <div className='lg:w-[80%] w-[90%] mx-auto'>
-            <LandingPageHeader />
-            <HeroSection />
-            <OurService />
-            <HowitWork />
-            <Whychooseus />
-            <Testimonials />
+        <div>
+            <div className='lg:w-[80%] w-[90%] mx-auto'>
+                <LandingPageHeader />
+                <HeroSection />
+                <OurService />
+                <HowitWork />
+                <Whychooseus />
+                <Testimonials />
+            </div>
             <Footer />
         </div>
     );
