@@ -40,7 +40,7 @@ const LandingPageHeader = () => {
     }, []);
 
     return (
-        <header className="w-full rounded-lg sticky shadow-md bg-[#ffffff49] border-2 border-[#ffff01] mt-2 top-0 left-0 z-50">
+        <header className="w-full rounded-lg sticky shadow-md backdrop-blur-lg bg-[#ffffff49] border-2 border-[#ffff01] mt-2 top-0 left-0 z-50">
             <div className="mx-auto flex items-center justify-between px-6 py-4">
                 {/* Logo */}
                 <div className="text-2xl font-bold text-[#ffff01] cursor-pointer">
@@ -55,8 +55,8 @@ const LandingPageHeader = () => {
                             href={`#${item.id}`}
                             onClick={() => setActiveSection(item.id)}
                             className={`pb-1 transition ${activeSection === item.id
-                                    ? " border-b-2 border-[#ffff01]"
-                                    : "text-gray-800 "
+                                ? " border-b-2 border-[#ffff01]"
+                                : "text-gray-800 "
                                 }`}
                         >
                             {item.name}
