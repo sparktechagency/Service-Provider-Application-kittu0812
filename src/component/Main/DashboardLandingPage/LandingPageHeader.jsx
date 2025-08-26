@@ -66,7 +66,7 @@ const LandingPageHeader = () => {
 
                 {/* Button */}
                 <Link
-                    to={"/admin"}
+                    to={"/"}
                     className="ml-6 px-5 py-2 bg-[#ffff0138] flex items-center gap-2 text-black border border-[#ffff01] hover:bg-[#ffff01] rounded-lg shadow transition"
                 >
                     <CiPlay1 /> Admin Dashboard

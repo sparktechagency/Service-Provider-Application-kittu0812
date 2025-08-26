@@ -23,6 +23,12 @@ body,
   scroll-snap-stop: always;
 }
 
+/* Optional for smoother transition of scaling effect */
+.transition-all {
+  transition: transform 0.3s ease-in-out;
+}
+
+
 /* Custom scrollbar for sidebar with a minimal and modern design */
 .sidebar {
   overflow-y: scroll;

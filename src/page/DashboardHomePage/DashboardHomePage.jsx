@@ -3,6 +3,9 @@ import LandingPageHeader from '../../component/Main/DashboardLandingPage/Landing
 import HeroSection from './HeroSection';
 import OurService from './OurService';
 import HowitWork from './HowitWork';
+import Whychooseus from './Whychooseus';
+import Testimonials from './Testimonials';
+import Footer from './Footer';
 
 const DashboardHomePage = () => {
     return (
@@ -11,9 +14,9 @@ const DashboardHomePage = () => {
             <HeroSection />
             <OurService />
             <HowitWork />
-            <div className='h-[100vh]'>
-
-            </div>
+            <Whychooseus />
+            <Testimonials />
+            <Footer />
         </div>
     );
 }

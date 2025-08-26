@@ -2,11 +2,11 @@ import React from 'react';
 
 const HowitWork = () => {
     return (
-        <section id='howwework' className='py-10 md:py-20 grid md:grid-cols-2 gap-6 items-center '>
+        <section id='howwework' className='py-10 md:py-20 grid lg:grid-cols-2 gap-6 items-center '>
             <div>
                 <h2 className='text-3xl font-semibold mb-3'>Step-by-Step Guide On How We Work</h2>
                 <p>Guiding you through each step, ensuring precision, transparency, and exceptional service.</p>
-                <img className='max-w-[500px] mt-10 h-auto' src="/Page/how-it-workl.png" alt="" />
+                <img className='max-w-[500px] w-full mt-10 h-auto' src="/Page/how-it-workl.png" alt="" />
             </div>
             <div className='space-y-3 relative'>
                 <div className='bg-white border-2 sticky top-0 border-[#ffff01] px-5 py-10 rounded-lg '>
