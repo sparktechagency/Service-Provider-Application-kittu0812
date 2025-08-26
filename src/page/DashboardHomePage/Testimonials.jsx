@@ -111,13 +111,13 @@ const Testimonials = () => {
                 {/* Next Button */}
                 <div className='flex items-center justify-center mt-10 gap-2' >
                     <button
-                        className=" z-[999] w-14 text-2xl h-14 left-0 top-1/2 transform -translate-y-1/2 bg-yellow-500 text-white p-2 rounded-full"
+                        className=" z-[999] w-14 text-2xl h-14 left-0 top-1/2 transform -translate-y-1/2 bg-[#ffff01] text-black p-2 rounded-full"
                         onClick={goToPrevious}
                     >
                         &#8592;
                     </button>
                     <button
-                        className=" right-0 w-14 h-14 text-2xl top-1/2 transform -translate-y-1/2 bg-yellow-500 text-white p-2 rounded-full"
+                        className=" right-0 w-14 h-14 text-2xl top-1/2 transform -translate-y-1/2 bg-[#ffff01] text-black p-2 rounded-full"
                         onClick={goToNext}
                     >
                         &#8594;
