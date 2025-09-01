@@ -42,7 +42,7 @@ const LandingPageHeader = () => {
     }, []);
 
     return (
-        <header className="w-full sticky top-0 left-0 z-50 rounded-lg shadow-md backdrop-blur-lg bg-[#ffffff49] border-2 border-[#ffff01] mt-2">
+        <header className="w-full sticky top-0 left-0 z-[9999] rounded-lg shadow-md backdrop-blur-lg bg-[#ffffff49] border-2 border-[#ffff01] mt-2">
             <div className="mx-auto flex items-center justify-between px-6 py-4">
                 {/* Logo */}
                 <div className="text-2xl font-bold text-[#ffff01] cursor-pointer">
