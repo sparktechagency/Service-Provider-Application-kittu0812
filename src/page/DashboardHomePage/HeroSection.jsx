@@ -1,5 +1,3 @@
- 
-
 const HeroSection = () => {
     return (
         <section id='home' className='relative my-10'>
