@@ -17,6 +17,14 @@ const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["User-2"],
     }),
+    updateProfile: builder.mutation({
+      query: (data) => ({
+        url: `/admin/profile`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["User-2"],
+    }),
 
     getAllCollectors: builder.query({
       query: ({ from, to }) => ({
@@ -49,4 +57,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useUpdateStstusMutation, useGetAllCollectorsQuery, useGetSingleUserQuery, useBlockUserMutation, useUnBlockUserMutation } = userApi;
+export const { useGetAllUsersQuery, useUpdateStstusMutation, useGetAllCollectorsQuery, useUpdateProfileMutation, useGetSingleUserQuery, useBlockUserMutation, useUnBlockUserMutation } = userApi;
