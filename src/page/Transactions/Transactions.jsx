@@ -50,8 +50,8 @@ const Transactions = () => {
 
     // Optional: search functionality (not required to paginate)
     const filtered = fullData?.filter(txn =>
-        txn?.userName?.toLowerCase().includes(search.toLowerCase()) ||
-        txn?.customer?.email?.toLowerCase().includes(search.toLowerCase())
+        txn?.customer?.email?.toLowerCase().includes(search.toLowerCase()) ||
+        txn?.totalAmount.toString().includes(search) // Convert totalAmount to string
     );
 
     // const totalPages = Math.ceil(filtered?.length / pageSize);
@@ -86,7 +86,7 @@ const Transactions = () => {
                         <FaSearch className="text-yellow-600 mr-2" />
                         <input
                             type="text"
-                            placeholder="Search"
+                            placeholder="Search by email or Amount"
                             className="outline-none flex-1"
                             onChange={(e) => {
                                 setSearch(e.target.value);
