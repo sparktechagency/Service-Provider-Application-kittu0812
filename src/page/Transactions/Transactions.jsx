@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { MdDeleteOutline } from 'react-icons/md';
+import { useDeleteTransactionMutation, useGetAllTransactionsQuery } from '../../redux/features/transactions/transactions';
+import moment from 'moment';
+import { toast, Toaster } from 'sonner';
 
 const sampleTransactions = [
     {
@@ -41,17 +44,39 @@ const Transactions = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const pageSize = 5;
 
+    const { data } = useGetAllTransactionsQuery({ currentPage, pageSize });
+    const fullData = data?.data;
+    console.log(data?.totalPages);
+
     // Optional: search functionality (not required to paginate)
-    const filtered = sampleTransactions.filter(txn =>
-        txn.userName.toLowerCase().includes(search.toLowerCase()) ||
-        txn.email.toLowerCase().includes(search.toLowerCase())
+    const filtered = fullData?.filter(txn =>
+        txn?.userName?.toLowerCase().includes(search.toLowerCase()) ||
+        txn?.customer?.email?.toLowerCase().includes(search.toLowerCase())
     );
 
-    const totalPages = Math.ceil(filtered.length / pageSize);
-    const paginatedData = filtered.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+    // const totalPages = Math.ceil(filtered?.length / pageSize);
+    const paginatedData = filtered?.slice((currentPage - 1) * pageSize, currentPage * pageSize);
+
+    const [deleteTransition] = useDeleteTransactionMutation();
+
+    const handleDelete = async (id) => {
+        try {
+            const res = await deleteTransition(id);
+            console.log(res);
+            if (res?.data) {
+                toast.success(res?.data?.message || 'Transaction deleted successfully');
+            }
+
+        } catch (error) {
+            console.log(error);
+            toast.error(error?.message || 'Failed to delete transaction');
+        }
+        // Handle delete logic here
+    };
 
     return (
         <div className="lg:p-6 py-4  bg-white rounded-lg ">
+            <Toaster />
             <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
                 <h2 className="text-3xl font-semibold">Transactions</h2>
 
@@ -78,30 +103,30 @@ const Transactions = () => {
                             <th className="py-5 font-semibold px-4">#</th>
                             <th className="py-5 font-semibold px-4">User Name</th>
                             <th className="py-5 font-semibold px-4">E-Mail</th>
-                            <th className="py-5 font-semibold px-4">Service Provider</th>
-                            <th className="py-5 font-semibold px-4">Service Category</th>
-                            <th className="py-5 font-semibold px-4">Service Sub-Category</th>
-                            <th className="py-5 font-semibold px-4">Date & Time</th>
+                            <th className="py-5 font-semibold px-4">Date of Transaction</th>
+                            <th className="py-5 font-semibold px-4">Tax</th>
+                            <th className="py-5 font-semibold px-4">Order Status</th>
+                            <th className="py-5 font-semibold px-4">Payment Status</th>
                             <th className="py-5 font-semibold px-4">Amount</th>
                             <th className="py-5 font-semibold px-4">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {paginatedData.map((txn, index) => (
+                        {paginatedData?.map((txn, index) => (
                             <tr
                                 key={txn.id}
                                 className={`border-b hover:bg-gray-50 ${index % 2 === 0 ? 'bg-gray-100' : 'bg-white'}`}
                             >
                                 <td className="py-4 px-4">{(currentPage - 1) * pageSize + index + 1}</td>
-                                <td className="py-4 px-4">{txn.userName}</td>
-                                <td className="py-4 px-4">{txn.email}</td>
-                                <td className="py-4 px-4">{txn.provider}</td>
-                                <td className="py-4 px-4">{txn.category}</td>
-                                <td className="py-4 px-4">{txn.subCategory}</td>
-                                <td className="py-4 px-4">{txn.dateTime}</td>
-                                <td className="py-4 px-4 font-medium text-green-700">{txn.amount}</td>
+                                <td className="py-4 px-4">{txn?.customer?.firstName + " " + txn?.customer?.lastName}</td>
+                                <td className="py-4 px-4">{txn.customer?.email}</td>
+                                <td className="py-4 px-4">{moment(txn.createdAt).format('YYYY-MM-DD HH:mm A')}</td>
+                                <td className="py-4 px-4">{txn.tax}$</td>
+                                <td className="py-4 px-4">{txn.orderStatus}</td>
+                                <td className="py-4 px-4">{txn.paymentStatus}</td>
+                                <td className="py-4 px-4 font-medium text-green-700">{txn.totalAmount}$</td>
                                 <td className="py-4 px-4">
-                                    <button className="text-red-600 hover:underline">
+                                    <button onClick={() => handleDelete(txn._id)} className="text-red-600 hover:underline">
                                         <MdDeleteOutline className="text-3xl" />
                                     </button>
                                 </td>
@@ -121,10 +146,10 @@ const Transactions = () => {
                     Prev
                 </button>
                 <span className="text-sm">
-                    Page {currentPage} of {totalPages}
+                    Page {currentPage} of {data?.totalPages}
                 </span>
                 <button
-                    disabled={currentPage === totalPages}
+                    disabled={currentPage === data?.totalPages}
                     onClick={() => setCurrentPage(prev => prev + 1)}
                     className="px-4 py-2 border border-gray-300 rounded disabled:opacity-50"
                 >

@@ -4,12 +4,13 @@ const categoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     addCategory: builder.mutation({
       query: (data) => ({
-        url: "/categories/add",
+        url: "/admin/categories",
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["Categories"]
     }),
+
     getAllCategories: builder.query({
       query: () => ({
         url: "/categories",
