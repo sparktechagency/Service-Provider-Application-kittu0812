@@ -10,11 +10,15 @@ import { MdNotificationsNone } from "react-icons/md";
 import { useGetUserProfileQuery } from "../../../redux/features/setting/settingApi";
 import { useEffect } from "react";
 import Url from "../../../redux/baseApi/forImageUrl";
+import { useGetAllNotificationQuery } from "../../../redux/features/notification/notification";
 
 const Header = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
   const { data: userProfile, refetch } = useGetUserProfileQuery();
+
+  const { data } = useGetAllNotificationQuery()
+  const notifications = data?.count;
 
   const user = userProfile?.data;
   // console.log(user); 
@@ -40,7 +44,7 @@ const Header = ({ toggleSidebar }) => {
         <Link to={"/notification"}>
           <h1 className="relative text-[#ffffff] p-2 rounded-lg border border-white">
             <MdNotificationsNone className="size-8" />
-            <span className="absolute top-0 right-0 w-5 h-5 text-[#1b2428] text-xs flex justify-center items-center bg-[#ffff01] rounded-md">9+</span>
+            <span className="absolute top-0 right-0 w-5 h-5 text-[#1b2428] text-xs flex justify-center items-center bg-[#ffff01] rounded-md">{notifications > 99 ? "99+" : notifications || "0"}</span>
           </h1>
 
         </Link>

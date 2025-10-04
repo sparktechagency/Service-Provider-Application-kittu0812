@@ -10,6 +10,7 @@ import CustomInput from "../../../utils/CustomInput";
 import CustomButton from "../../../utils/CustomButton";
 import { useState } from "react";
 import { useChangePasswordMutation } from "../../../redux/features/auth/authApi";
+import { toast, Toaster } from "sonner";
 
 const Settings = () => {
   // const { user } = useSelector(state => state?.auth) 
@@ -66,21 +67,21 @@ const Settings = () => {
   const handleChangePassword = async (values) => {
 
     const { oldPassword, newPassword } = values;
-    console.log("oldPassword", oldPassword, "newPassword", newPassword);
+    if (oldPassword === newPassword) {
+      toast.error("New password can not be same as old password");
+      return;
+    }
     const formData = {
       oldPassword,
-      newPassword
+      newPassword,
+      newPasswordConfirm: newPassword
     }
 
     try {
 
       const res = await updatePassword(formData).unwrap();
       console.log(res);
-      if (res?.code) {
-        // navigate('')
-        message.success(res?.message);
-        setIsModalOpen(false);
-      }
+
 
     } catch (error) {
       console.log(error);
@@ -104,6 +105,7 @@ const Settings = () => {
   };
   return (
     <section className="w-full py-6">
+      <Toaster />
       {settingsItem.map((setting, index) => (
         <div
           key={index}

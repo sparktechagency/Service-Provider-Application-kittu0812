@@ -75,7 +75,7 @@ const settingApi = baseApi.injectEndpoints({
 
     getAllNotification: builder.query({
       query: () => ({
-        url: "/notifications",
+        url: "/notifications/me",
         method: "GET",
         providesTags: ["Notification"],
       }),
