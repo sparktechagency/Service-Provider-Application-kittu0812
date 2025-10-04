@@ -1,5 +1,8 @@
 import React from 'react';
 import { Avatar } from 'antd';
+import { useGetDashboardStatusQuery } from '../../../redux/features/dashboard/dashboardApi';
+import Url from '../../../redux/baseApi/forImageUrl';
+import moment from 'moment';
 
 const userList = [
   {
@@ -59,31 +62,35 @@ const userList = [
 ];
 
 const RecentTransactions = () => {
+
+  const { data, isLoading } = useGetDashboardStatusQuery();
+  console.log(data?.recentUsers);
+
   return (
     <div className="w-full col-span-full md:col-span-4 bg-[#f8f9fa] p-6 rounded-lg">
       <h2 className="text-lg font-semibold mb-4 text-gray-700">Recent Users</h2>
 
       <div className="space-y-3 overflow-x-auto">
-        {userList.map((user) => (
+        {data?.recentUsers?.map((user) => (
           <div key={user.id} className="">
             <div className="min-w-[600px] flex justify-between items-center bg-white rounded-md px-5 py-4 shadow-sm">
               {/* User Info */}
               <div className="flex items-center gap-3">
-                <Avatar src={user.image} size="large" />
-                <span className="font-medium text-gray-800">{user.name}</span>
+                <Avatar src={Url + user?.profilePic} size="large" />
+                <span className="font-medium text-gray-800">{user?.firstName + user?.lastName}</span>
               </div>
 
+              <div className="text-gray-600 whitespace-nowrap">{user.email}</div>
               {/* Amount */}
-              <div className="text-[#344f47] font-semibold whitespace-nowrap">{user.amount}</div>
+              <div className="text-[#344f47] font-semibold whitespace-nowrap">{moment(user.createdAt).fromNow()}</div>
 
               {/* Flowers */}
-              <div className="text-gray-600 whitespace-nowrap">{user.flowers}</div>
+              <div className="text-gray-600 whitespace-nowrap">{user.role}</div>
 
               {/* Tokens */}
-              <div className="text-gray-600 whitespace-nowrap">{user.tokens}</div>
+              <div className="text-gray-600 whitespace-nowrap">{user.contactNumber}</div>
 
               {/* Date */}
-              <div className="text-gray-600 whitespace-nowrap">{user.date}</div>
             </div>
           </div>
         ))}

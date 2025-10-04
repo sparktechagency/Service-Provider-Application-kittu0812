@@ -14,6 +14,7 @@ const LandingPageHeader = () => {
         { name: "Why Choose Us", id: "whychooseus" },
         { name: "Testimonials", id: "testimonials" },
     ];
+    const [token, setToken] = useState('');
 
     // Intersection Observer for active section
     useEffect(() => {
@@ -27,6 +28,9 @@ const LandingPageHeader = () => {
             },
             { threshold: 0.6 } // 60% visible
         );
+
+        const token = localStorage.getItem("token");
+        setToken(token);
 
         navItems.forEach((item) => {
             const section = document.getElementById(item.id);
@@ -68,7 +72,7 @@ const LandingPageHeader = () => {
 
                 {/* Admin Button */}
                 <Link
-                    to="/"
+                    to={token ? "/" : "/auth"}
                     className="hidden md:flex ml-6 px-5 py-2 bg-[#ffff0138] items-center gap-2 text-black border border-[#ffff01] hover:bg-[#ffff01] rounded-lg shadow transition"
                 >
                     <CiPlay1 /> Admin Dashboard
@@ -106,7 +110,7 @@ const LandingPageHeader = () => {
                             </a>
                         ))}
                         <Link
-                            to="/"
+                            to={token ? "/" : "/auth"}
                             className="px-5 py-2 bg-[#ffff0138] flex items-center gap-2 text-black border border-[#ffff01] hover:bg-[#ffff01] rounded-lg shadow transition"
                             onClick={() => setMenuOpen(false)} // Close menu
                         >

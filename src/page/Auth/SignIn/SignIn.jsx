@@ -23,27 +23,32 @@ const SignIn = () => {
     }
     try {
       const res = await login(data).unwrap();
-      console.log(res?.token);
+      console.log(res);
 
-      navigate("/dashboard-home");
+      // navigate("/dashboard-home");
 
       if (res.error) {
+        console.log(res.error.data.message);
         toast.error(res.error.data.message);
         console.log(res.error.data.message);
       }
       if (res) {
         dispatch(
           loggedUser({
-            token: res?.token
+            token: res?.accessToken
           })
         );
-        toast.success(res?.message);
+        localStorage.setItem("token", res?.accessToken);
+
+        toast.success('Login Successfully');
+        navigate("/dashboard-home");
       }
 
-      navigate("/");
+      // navigate("/");
 
 
     } catch (error) {
+      console.log(error);
       toast.error("Something went wrong");
     }
   };
