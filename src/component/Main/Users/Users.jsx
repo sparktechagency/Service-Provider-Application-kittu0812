@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { MdBlock } from 'react-icons/md';
-import { useGetAllUsersQuery } from '../../../redux/features/user/userApi';
+import { useGetAllUsersQuery, useUpdateStstusMutation } from '../../../redux/features/user/userApi';
 import moment from 'moment';
+import Url from '../../../redux/baseApi/forImageUrl';
+import { toast, Toaster } from 'sonner';
 
 const userData = [
   {
@@ -49,7 +51,7 @@ const Users = () => {
   const [search, setSearch] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const { data } = useGetAllUsersQuery();
+  const { data, isLoading } = useGetAllUsersQuery();
   console.log(data);
 
   const filteredUsers = data?.filter((user) => {
@@ -70,8 +72,39 @@ const Users = () => {
     setSelectedUser(null);
   };
 
+  const [updateUserStatus] = useUpdateStstusMutation();
+  const handleBlockUser = async (userId) => {
+    // Implement block user logic here
+    const data = {
+      status: 'blocked'
+    }
+    try {
+      const res = await updateUserStatus({ data, id: userId });
+      console.log(res);
+      toast.success('User blocked successfully');
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message || 'Failed to block user');
+    }
+  };
+  const handleUnBlockUser = async (userId) => {
+    // Implement unblock user logic here
+    const data = {
+      status: 'active'
+    }
+    try {
+      const res = await updateUserStatus({ data, id: userId });
+      console.log(res);
+      toast.success('User unblocked successfully');
+    } catch (error) {
+      console.log(error);
+      toast.error(error?.message || 'Failed to unblock user');
+    }
+  };
+
   return (
     <section className="lg:p-6 py-4">
+      <Toaster />
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
         <h2 className="text-3xl font-semibold">User Management</h2>
 
@@ -118,6 +151,26 @@ const Users = () => {
 
       {/* User Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        {
+          isLoading &&
+          [1, 2, 3, 4].map((item) => (
+            <div class="mx-auto w-full min-h-60 max-w-sm rounded-md border border-blue-300 p-4">
+              <div class="flex animate-pulse space-x-4">
+                <div class="size-10 rounded-full bg-gray-200"></div>
+                <div class="flex-1 space-y-6 py-1">
+                  <div class="h-2 rounded bg-gray-200"></div>
+                  <div class="space-y-3">
+                    <div class="grid grid-cols-3 gap-4">
+                      <div class="col-span-2 h-2 rounded bg-gray-200"></div>
+                      <div class="col-span-1 h-2 rounded bg-gray-200"></div>
+                    </div>
+                    <div class="h-2 rounded bg-gray-200"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
         {filteredUsers?.map((user) => (
           <div
             key={user.id}
@@ -126,7 +179,8 @@ const Users = () => {
             <div className="cursor-pointer" onClick={() => showDetailsModal(user)}>
               <div className="flex items-center gap-3 mb-4">
                 <img
-                  src="https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg"
+                  // "https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg"
+                  src={Url + user.profilePic}
                   alt={user.name}
                   className="rounded-full w-12 h-12 object-cover"
                 />
@@ -154,11 +208,11 @@ const Users = () => {
 
             <div className="flex gap-3 mt-2">
               {user.status === 'blocked' ? (
-                <button className="border border-yellow-500 text-yellow-500 px-4 py-1 rounded hover:bg-yellow-50">
+                <button onClick={() => handleUnBlockUser(user._id)} className="border border-yellow-500 text-yellow-500 px-4 py-1 rounded hover:bg-yellow-50">
                   Unblock
                 </button>
               ) : (
-                <button className="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-50">
+                <button onClick={() => handleBlockUser(user._id)} className="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-50">
                   Block
                 </button>
               )}

@@ -9,6 +9,15 @@ const userApi = baseApi.injectEndpoints({
       }),
       providesTags: ["User-2"],
     }),
+    updateStstus: builder.mutation({
+      query: ({ data, id }) => ({
+        url: `/admin/users/${id}/status`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["User-2"],
+    }),
+
     getAllCollectors: builder.query({
       query: ({ from, to }) => ({
         url: `/get-collaborator-data?from=${from}&to=${to}`,
@@ -40,4 +49,4 @@ const userApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useGetAllUsersQuery, useGetAllCollectorsQuery, useGetSingleUserQuery, useBlockUserMutation, useUnBlockUserMutation } = userApi;
+export const { useGetAllUsersQuery, useUpdateStstusMutation, useGetAllCollectorsQuery, useGetSingleUserQuery, useBlockUserMutation, useUnBlockUserMutation } = userApi;
