@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import { IoMdClose } from 'react-icons/io';
 import { MdBlock } from 'react-icons/md';
+import { useGetAllUsersQuery } from '../../../redux/features/user/userApi';
+import moment from 'moment';
 
 const userData = [
   {
@@ -29,7 +31,7 @@ const userData = [
     phone: '+880 18456229',
     joinDate: '2 May, 2025',
     image: '/avatars/avatar-3.png',
-    status: 'suspended',
+    status: 'active',
   },
   {
     id: 4,
@@ -47,14 +49,16 @@ const Users = () => {
   const [search, setSearch] = useState('');
   const [selectedUser, setSelectedUser] = useState(null);
 
-  const filteredUsers = userData.filter((user) => {
+  const { data } = useGetAllUsersQuery();
+  console.log(data);
+
+  const filteredUsers = data?.filter((user) => {
     const matchFilter =
       filter === 'all' ||
       (filter === 'blocked' && user.status === 'blocked') ||
-      (filter === 'suspended' && user.status === 'suspended') ||
       (filter === 'active' && user.status === 'active');
 
-    const matchSearch = user.name.toLowerCase().includes(search.toLowerCase());
+    const matchSearch = user.email.toLowerCase().includes(search.toLowerCase());
     return matchFilter && matchSearch;
   });
 
@@ -67,7 +71,7 @@ const Users = () => {
   };
 
   return (
-    <section className="lg:p-6 py-4 ">
+    <section className="lg:p-6 py-4">
       <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-10 gap-4">
         <h2 className="text-3xl font-semibold">User Management</h2>
 
@@ -76,7 +80,7 @@ const Users = () => {
             <FaSearch className="text-yellow-600 mr-2" />
             <input
               type="text"
-              placeholder="Search"
+              placeholder="Search by email"
               className="outline-none flex-1"
               onChange={(e) => setSearch(e.target.value)}
             />
@@ -86,46 +90,40 @@ const Users = () => {
 
       {/* Filter Buttons */}
       <div className="mb-4 flex gap-3 flex-wrap">
-        {['all', 'blocked', 'suspended', 'active'].map((status) => (
+        {['all', 'blocked', 'active']?.map((status) => (
           <button
             key={status}
             onClick={() => setFilter(status)}
             className={`px-4 py-1 border rounded-full ${filter === status
               ? status === 'blocked'
                 ? 'bg-yellow-500 text-white'
-                : status === 'suspended'
-                  ? 'bg-red-500 text-white'
-                  : status === 'active'
-                    ? 'bg-green-600 text-white'
-                    : 'bg-black text-white'
+                : status === 'active'
+                  ? 'bg-green-600 text-white'
+                  : 'bg-black text-white'
               : status === 'blocked'
                 ? 'border-yellow-500 text-yellow-600'
-                : status === 'suspended'
-                  ? 'border-red-500 text-red-600'
-                  : status === 'active'
-                    ? 'border-green-600 text-green-600'
-                    : 'border-gray-400 text-gray-700'
+                : status === 'active'
+                  ? 'border-green-600 text-green-600'
+                  : 'border-gray-400 text-gray-700'
               }`}
           >
             {status === 'all'
               ? 'All'
               : status === 'blocked'
                 ? 'Blocked'
-                : status === 'suspended'
-                  ? 'Suspended'
-                  : 'Not Blocked'}
+                : 'Not Blocked'}
           </button>
         ))}
       </div>
 
       {/* User Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-        {filteredUsers.map((user) => (
+        {filteredUsers?.map((user) => (
           <div
             key={user.id}
-            className="bg-gray-100  rounded-lg p-4 shadow-sm"
+            className="bg-gray-100 rounded-lg p-4 shadow-sm"
           >
-            <div className='cursor-pointer' onClick={() => showDetailsModal(user)}>
+            <div className="cursor-pointer" onClick={() => showDetailsModal(user)}>
               <div className="flex items-center gap-3 mb-4">
                 <img
                   src="https://img.freepik.com/vecteurs-libre/cercle-bleu-utilisateur-blanc_78370-4707.jpg"
@@ -134,18 +132,18 @@ const Users = () => {
                 />
                 <div>
                   <p className="text-sm font-medium">User Name</p>
-                  <p className="text-gray-800">{user.name}</p>
+                  <p className="text-gray-800">{user.firstName + ' ' + user.lastName}</p>
                 </div>
                 <div className="ml-auto text-right">
                   <p className="text-sm font-medium">Joining Date</p>
-                  <p className="text-gray-700">{user.joinDate}</p>
+                  <p className="text-gray-700">{moment(user.createdAt).format('YYYY-MM-DD')}</p>
                 </div>
               </div>
 
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-sm font-medium text-gray-600">Telephone</p>
-                  <p className="mb-2">{user.phone}</p>
+                  <p className="mb-2">{user.contactNumber}</p>
                 </div>
                 <div>
                   <p className="text-sm font-medium text-gray-600">Email</p>
@@ -155,11 +153,6 @@ const Users = () => {
             </div>
 
             <div className="flex gap-3 mt-2">
-              {user.status !== 'suspended' && (
-                <button className="border border-red-500 text-red-500 px-4 py-1 rounded hover:bg-red-50">
-                  Suspend
-                </button>
-              )}
               {user.status === 'blocked' ? (
                 <button className="border border-yellow-500 text-yellow-500 px-4 py-1 rounded hover:bg-yellow-50">
                   Unblock
