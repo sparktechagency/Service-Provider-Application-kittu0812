@@ -64,7 +64,7 @@ const userList = [
 const RecentTransactions = () => {
 
   const { data, isLoading } = useGetDashboardStatusQuery();
-  console.log(data?.recentUsers);
+
 
   return (
     <div className="w-full col-span-full md:col-span-4 bg-[#f8f9fa] p-6 rounded-lg">

@@ -9,16 +9,12 @@ import {
   Legend,
   ResponsiveContainer
 } from 'recharts';
+import { useGetIncomeRatioQuery } from '../../../redux/features/dashboard/dashboardApi';
 
 const IncomeGraphChart = () => {
-  const data = [
-    { month: 'Jan', income: 4 },
-    { month: 'Feb', income: 9 },
-    { month: 'Mar', income: 9.1 },
-    { month: 'Apr', income: 3 },
-    { month: 'May', income: 12 },
-    { month: 'Jun', income: 12.9 },
-  ];
+
+
+  const { data, isLoading } = useGetIncomeRatioQuery();
 
   return (
     <section className="w-full col-span-full md:col-span-2 bg-gray-100 rounded-lg ">
@@ -33,7 +29,7 @@ const IncomeGraphChart = () => {
           {/* Only Income Line */}
           <Line
             type="monotone"
-            dataKey="income"
+            dataKey="revenue"
             stroke="#2421f4"
             activeDot={{ r: 8 }}
             strokeWidth={4}
