@@ -13,22 +13,22 @@ const PersonalinfoEdit = () => {
     const navigate = useNavigate();
     const [form] = Form.useForm();
     const { data: userProfile, isLoading, refetch } = useGetUserProfileQuery();
-    const user = userProfile?.data;
+    const user = userProfile;
 
     const [fileList, setFileList] = useState([]);
     const [imageUrl, setImageUrl] = useState(defaultUserImage);
     const [updateImage, setUpdateImage] = useState(null);
-    const [phoneNumber, setPhoneNumber] = useState("");
+    const [contactNumber, setcontactNumber] = useState("");
 
     // ✅ **Load User Data When API Call Completes**
     useEffect(() => {
         if (user) {
             form.setFieldsValue({
-                name: user.fullName || "",
+                name: user.firstName || "",
                 email: user.email || "",
             });
-            setPhoneNumber(user.phoneNumber || "");
-            setImageUrl(user.profileImageUrl ? Url + user.profileImageUrl : defaultUserImage);
+            setcontactNumber(user.contactNumber || "");
+            setImageUrl(user.profilePic ? Url +'/'+ user.profilePic : defaultUserImage);
         }
     }, [user, form]);
 
@@ -52,17 +52,18 @@ const PersonalinfoEdit = () => {
 
     const handleUpdateProfile = async (values) => {
         const formData = new FormData();
-        formData.append("name", values.name);
-        formData.append("phoneNumber", phoneNumber);
+        formData.append("firstName", values.name);
+        formData.append("contactNumber", contactNumber);
 
         if (fileList[0]?.originFileObj) {
-            formData.append("imageOfProfile", fileList[0].originFileObj);
+            formData.append("profilePic", fileList[0].originFileObj);
         }
 
         try {
 
             const response = await updateProfile(formData).unwrap();
             console.log(response);
+
             if (response?.code) {
                 message.success(response?.message);
                 navigate("/settings/personal-info");
@@ -88,11 +89,11 @@ const PersonalinfoEdit = () => {
                     autoComplete="off"
                     onFinish={handleUpdateProfile}
                 >
-                    <div className="flex flex-col lg:flex-row gap-10">
+                    <div className="flex flex-col lg:flex-row gap-10 py-5">
                         {/* ✅ Profile Picture Section */}
 
                         {/* ✅ Form Inputs Section */}
-                        <div className="flex-1 max-w-[700px] border border-[#fff050] mx-auto p-6">
+                        <div className="flex-1 lg:max-w-[700px] w-full border lg:border-[#fff050] mx-auto p-6">
                             <div className="flex flex-col items-center w-full mb-5 ">
                                 <div className="relative sm:w-36 w-24 sm:h-36 h-24 rounded-full flex justify-center items-center mt-5 bg-gray-50 border">
                                     <Upload name="profile" showUploadList={false} onChange={handleUploadChange}>
@@ -119,13 +120,12 @@ const PersonalinfoEdit = () => {
 
                                 <div className="flex flex-col">
                                     <label className="text-lg font-medium mb-2">Phone Number</label>
-                                    <PhoneInput
+                                    <Input
+                                        as={PhoneInput}
                                         placeholder="Enter phone number"
-                                        value={phoneNumber}
-                                        onChange={setPhoneNumber}
-                                        international
-                                        defaultCountry="bd"
-                                        className="rounded-lg border-gray-300 py-3 focus:ring-blue-500 focus:border-blue-500 border-2 px-2"
+                                        value={contactNumber}
+                                        onChange={setcontactNumber}
+                                        className="p-4 rounded-lg border-gray-300 focus:ring-blue-500 focus:border-blue-500"
                                     />
                                 </div>
                             </div>
@@ -133,7 +133,7 @@ const PersonalinfoEdit = () => {
                     </div>
 
                     {/* ✅ Save Changes Button */}
-                    <div className="flex sm:justify-end justify-center items-center mt-8">
+                    <div className="flex sm:justify-end justify-center items-center mt-2 p-2">
                         <Button htmlType="submit" className="h-14 md:px-20 !bg-[#fff050] !text-black rounded-lg text-lg font-medium">
                             Save Changes
                         </Button>

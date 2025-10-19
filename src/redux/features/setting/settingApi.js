@@ -57,7 +57,7 @@ const settingApi = baseApi.injectEndpoints({
 
     getUserProfile: builder.query({
       query: () => ({
-        url: "/get-settings-data",
+        url: "/admin/profile",
         method: "GET",
         providesTags: ["Profile"],
       }),
@@ -65,8 +65,8 @@ const settingApi = baseApi.injectEndpoints({
 
     updateProfile: builder.mutation({
       query: (data) => ({
-        url: "/update-profile",
-        method: "POST",
+        url: "/admin/profile",
+        method: "PUT",
         body: data,
       }),
       invalidatesTags: ["Profile"],

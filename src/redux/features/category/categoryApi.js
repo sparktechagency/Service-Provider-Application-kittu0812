@@ -2,21 +2,22 @@ import { baseApi } from "../../baseApi/baseApi";
 
 const categoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    addCategory: builder.mutation({
-      query: (data) => ({
-        url: "/admin/categories",
+
+
+    getAllCategories: builder.query({
+      query: () => ({
+        url: "/services/categories",
+        method: "GET",
+      }),
+      providesTags: ["Categories"]
+    }),
+    createCategory: builder.mutation({
+      query: ({ data }) => ({
+        url: `/admin/categories`,
         method: "POST",
         body: data,
       }),
       invalidatesTags: ["Categories"]
-    }),
-
-    getAllCategories: builder.query({
-      query: () => ({
-        url: "/categories",
-        method: "GET",
-      }),
-      providesTags: ["Categories"]
     }),
     getCategoryById: builder.query({
       query: (id) => ({
@@ -49,8 +50,8 @@ const categoryApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useGetAllCategoriesQuery,
-  useAddCategoryMutation,
+  useGetAllCategoriesQuery, 
+  useCreateCategoryMutation,
   useDeleteCategoryMutation,
   useGetCategoryByIdQuery,
   useUpdateCategoryMutation,

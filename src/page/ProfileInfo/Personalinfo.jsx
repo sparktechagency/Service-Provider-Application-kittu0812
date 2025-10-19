@@ -12,7 +12,7 @@ const Personalinfo = () => {
 
     const { data: userProfile, refetch } = useGetUserProfileQuery();
 
-    const user = userProfile?.data;
+    const user = userProfile;
     console.log(user);
 
     useEffect(() => {
@@ -22,17 +22,17 @@ const Personalinfo = () => {
     return (
         <div className="md:p-4 mt-5 sm:mt-0">
             <div>
-                <Link to={"/settings"} className="flex items-center gap-2 text-xl font-semibold">
+                <Link to={"/settings"} className="flex items-center gap-2 text-xl my-2 font-semibold">
                     <MdOutlineKeyboardArrowLeft size={30} /> Profile setting
                 </Link>
             </div>
-            <div className="lg:flex md:flex gap-4 bg-white py-10 rounded-xl">
+            <div className="lg:flex md:flex gap-4 bg-white p-2 py-10 rounded-xl">
 
-                <div className="lg:max-w-[700px] mx-auto border border-[#fff050] rounded-lg mt-8 lg:mt-0 md:px-5">
+                <div className="lg:max-w-[700px] mx-auto borderp-2 border-[#fff050] rounded-lg mt-8 lg:mt-0 md:px-5">
 
                     <img
                         className="w-40 h-40 mx-auto border my-10 rounded-full"
-                        src={user?.profileImageUrl ? Url + user?.profileImageUrl : User_Profile}
+                        src={ user?.profilePic ? Url + user?.profilePic : User_Profile}
                         alt="User Profile"
                     />
 
@@ -47,7 +47,7 @@ const Personalinfo = () => {
                                 </label>
                                 <Input
                                     placeholder="First name"
-                                    value={user?.fullName} // Raw text for name
+                                    value={user?.firstName} // Raw text for name
                                     className="p-4 cursor-pointer text-lg md:text-xl text-black rounded w-full mt-3 outline-none"
                                     type="text"
                                     readOnly
@@ -74,7 +74,7 @@ const Personalinfo = () => {
                             </label>
                             <Input
                                 placeholder="Phone"
-                                value={user?.phoneNumber}// Raw text for phone number
+                                value={user?.contactNumber}// Raw text for phone number
                                 className="p-4 text-lg md:text-xl   rounded w-full mt-3 outline-none"
                                 type="text"
                                 readOnly
@@ -84,7 +84,7 @@ const Personalinfo = () => {
                 </div>
             </div>
 
-            <div className="flex gap-2 items-center md:justify-end justify-center mt-8">
+            <div className="flex gap-2 items-center md:justify-end justify-center my-8">
                 <div
                     onClick={() => navigate(`/settings/personal-info/edit`)}
                     className="w-48 !bg-[#fff050] !text-[#000] py-3 px-6 rounded-lg cursor-pointer flex justify-center items-center gap-2"

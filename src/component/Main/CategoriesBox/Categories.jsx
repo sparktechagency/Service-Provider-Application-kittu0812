@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Modal, Input, message, Pagination } from "antd";
 import { FaPlus } from "react-icons/fa";
 import categoryImage from "/public/category/category.png"; // Update this path as necessary
-import { useAddCategoryMutation, useDeleteCategoryMutation, useGetAllCategoriesQuery, useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
+import {  useDeleteCategoryMutation, useGetAllCategoriesQuery, useUpdateCategoryMutation } from "../../../redux/features/category/categoryApi";
 import Url from "../../../redux/baseApi/forImageUrl";
 
 const Categories = () => {
@@ -16,7 +16,7 @@ const Categories = () => {
   const [pageSize] = useState(4);
 
 
-  const [addCatagories] = useAddCategoryMutation();
+  // const [addCatagories] = useAddCategoryMutation();
   const [editCatagories, { isLoading: isUpdating }] = useUpdateCategoryMutation();
   const { data: allCategories, isLoading } = useGetAllCategoriesQuery();
   const allMain = allCategories?.data;
@@ -91,17 +91,17 @@ const Categories = () => {
 
     try {
 
-      const res = await addCatagories(formData).unwrap();
+      // const res = await addCatagories(formData).unwrap();
 
-      console.log(res);
-      if (res.error) {
-        message.error(res.error.data.message);
-      }
+      // console.log(res);
+      // if (res.error) {
+      //   message.error(res.error.data.message);
+      // }
 
-      if (res.success) {
-        message.success("Category added successfully!");
-        closeAddModal();
-      }
+      // if (res.success) {
+      //   message.success("Category added successfully!");
+      //   closeAddModal();
+      // }
 
 
     } catch (error) {
