@@ -17,6 +17,8 @@ const Category = () => {
         subcategories: [{ name: '', image: null }], // Store subcategory images as file objects
     });
 
+    const [createCategory] = useCreateCategoryMutation();
+
     // Fetch categories once data is available
     useEffect(() => {
         if (data) {
@@ -55,7 +57,7 @@ const Category = () => {
         setFormData({ name: '', image: null, subcategories: [{ name: '', image: null }] });
     };
 
-    const [createCategory] = useCreateCategoryMutation();
+
 
     // Save the category (add/edit)
     const handleSave = async () => {
