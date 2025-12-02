@@ -98,7 +98,6 @@ const router = createBrowserRouter([
         element: <MilestoneDetails />,
       },
 
-
       {
         path: "subscription",
         element: <Subscription />,
